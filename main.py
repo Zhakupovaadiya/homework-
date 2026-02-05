@@ -22,4 +22,9 @@ text="Hello. Effective. America. america."
 print(analyze_text(text))
 
 
-nskdfjdnfsdksnfkjdsfkgit
+
+dfs
+dfdsfsdfdsfds
+sd
+fsdfsd
+fdsfds
