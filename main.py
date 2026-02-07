@@ -22,9 +22,10 @@ text="Hello. Effective. America. america."
 print(analyze_text(text))
 
 
-
-dfs
-dfdsfsdfdsfds
-sd
-fsdfsd
-fdsfds
+def lambda_fun(l):
+    words=l.split()
+    words = filter(lambda w: not any(ch.isdigit() for ch in w), l)
+    words = map(lambda w: W[::-1], words)
+    words = filter(lambda w: len(w) % 2 == 0, words)
+    return " ".join(words)
+print(lambda_fun(["hello", "world"]))
