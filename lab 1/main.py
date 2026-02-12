@@ -1,4 +1,4 @@
-
+#1
 def analyze_text(text):
     text = text.lower()
     vowels = "aeiouy"
@@ -21,7 +21,7 @@ def analyze_text(text):
 text="Hello. Effective. America. america."
 print(analyze_text(text))
 
-
+#2
 def lambda_fun(l):
     words=l.split()
     words = filter(lambda w: not any(ch.isdigit() for ch in w), l)
@@ -29,3 +29,24 @@ def lambda_fun(l):
     words = filter(lambda w: len(w) % 2 == 0, words)
     return " ".join(words)
 print(lambda_fun(["hello", "world"]))
+
+#3
+def top_k_words(text, k):
+    text = text.lower()
+
+    cleaned = " "
+    for i in text:
+        if i.isalpha() or i==" ":
+            cleaned += i
+    words = cleaned.split()
+    counts = {}
+    for word in words:
+        if word not in counts:
+            counts[word] += 1
+        else:
+            counts[word] = 1
+    sorted_w = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+    result=[]
+    for i in range(min(k, len(sorted_w))):
+        result.append(sorted_w[i][0])
+    return result

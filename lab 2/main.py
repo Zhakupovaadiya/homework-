@@ -1,31 +1,38 @@
+with open ("data.txt", "w", encoding="utf-8") as f:
+    f.write("hello\n")
+print("hello")
 
-def analyze_text(text):
-    text = text.lower()
-    vowels = "aeiouy"
-
-    clean_text = ""
-    for i in range(len(text)):
-        if text[i].isalpha() or text[i]==" ":
-            clean_text += text[i]
-    un_vow=""
-    for i in range(len(clean_text)):
-        if clean_text[i] in vowels and clean_text[i] not in un_vow:
-            un_vow += clean_text[i]
-    words = clean_text.split()
-    result = []
-    for word in words:
-        if len(word)>=5:
-            if word[0] == word[-1]:
-                if word not in result:
-                    result.append(word)
-text="Hello. Effective. America. america."
-print(analyze_text(text))
+with open("file.txt", "w", encoding="utf-8") as f:
+    for i in range(1, 11):
+        f.write(str(i) + "\n")
+with open("file.txt", "r", encoding="utf-8") as f:
+    print(f.read())
+names=["Anna", "John", "Michael", "David"]
+with open("names.txt", "w", encoding="utf-8") as f:
+    for name in names:
+        f.write(name + "\n")
+with open("names.txt", "r", encoding="utf-8") as f:
+    for line in f:
+        print(line.strip().capitalize())
 
 
-def lambda_fun(l):
-    words=l.split()
-    words = filter(lambda w: not any(ch.isdigit() for ch in w), l)
-    words = map(lambda w: W[::-1], words)
-    words = filter(lambda w: len(w) % 2 == 0, words)
-    return " ".join(words)
-print(lambda_fun(["hello", "world"]))
+
+import csv
+names = ["Anna", "John", "Michael", "David"]
+with open("names.csv", "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    for name in names:
+        writer.writerow([name])
+with open("names.csv", "r", encoding="utf-8") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row[0].capitalize())
+
+with open("file.csv", "w", encoding="utf-8") as f:
+    for i in range(1, 11):
+        f.write(str(i) + "\n")
+with open("file.csv", "r", encoding="utf-8") as f:
+    print(f.read())
+
+with open("data.csv", "w", encoding="utf-8") as f:
+    f.write("how are you?\n")
