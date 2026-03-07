@@ -36,7 +36,6 @@ else:
     mean_check = 0
 print(mean_check)
 
-
 #пользователя, который потратил больше всего
 max_user = ""
 max_spent = 0
@@ -46,17 +45,13 @@ for user in user_spending:
         max_user = user
 print(max_user)
 
-with open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\report.txt", "w", encoding="utf-8") as f:
-    f.write(max_user)
+with open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\report.txt", "w", encoding="utf-8") as report:
+    report.write("Уникальных пользователей: " + str(len(unique_users)) + "\n")
+    report.write("Всего покупок: " +str(total_buys) + "\n")
+    report.write("Общая сумма: " +str(total_sum) + "\n")
+    report.write("Самый активный покупатель: " + max_user + "\n")
+    report.write("Средний чек: " +str(mean_check) + "\n")
 
-report = open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\report.txt", "w", encoding="utf-8")
-
-report.write("Уникальных пользователей: " + str(len(unique_users)) + "\n")
-report.write("Всего покупок: " +str(total_buys) + "\n")
-report.write("Общая сумма: " +str(total_sum) + "\n")
-report.write("Самый активный покупатель: " + max_user + "\n")
-report.write("Средний чек: " +str(mean_check) + "\n")
-report.close()
 
 #2
 import csv
@@ -67,7 +62,7 @@ employees_data=[
     {"name": "Aruzhan","department": "Marketing","salary": 400000},
     {"name": "Dias","department": "IT","salary": 450000}
 ]
-with open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\employees.csv", "w", encoding="utf-8") as f:
+with open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\employees.csv", "w",newline="", encoding="utf-8") as f:
     fieldnames = ["name", "department", "salary"]
     writer = csv.DictWriter(f, fieldnames=fieldnames)
     writer.writeheader()
@@ -91,10 +86,7 @@ departments = {}
 for e in employees:
     dept = e["department"]
     if dept not in departments:
-        departments[dept] = {
-            "total": e["salary"],
-            "count": 1
-        }
+        departments[dept] = {"total": e["salary"],"count": 1}
     else:
         departments[dept]["total"] += e["salary"]
         departments[dept]["count"] += 1
@@ -220,16 +212,16 @@ total_suspicious = 0
 
 with open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\transactions.csv", newline="", encoding="utf-8") as csvf:
     reader = csv.DictReader(csvf)
-
     for row in reader:
         user_id = row["user_id"]
         amount = int(row["amount"])
-
         user_op_count[user_id] = user_op_count.get(user_id, 0) + 1
-
+#все подозрительные транзакции
         if amount > 500000:
             suspicious_transactions.append((user_id, amount))
+#общую сумму подозрительных операций
             total_suspicious += amount
+#всех подозрительных пользователей
             suspicious_users.add(user_id)
 
 for user, count in user_op_count.items():
@@ -239,7 +231,7 @@ for user, count in user_op_count.items():
 with open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\fraud_report.txt", "w", encoding="utf-8") as f:
     f.write(f"Подозрительных транзакций: {len(suspicious_transactions)}\n")
     f.write(f"Подозрительных пользователей: {len(suspicious_users)}\n")
-    f.write(f"Список пользователей: {", ".join(suspicious_users)}\n")
+    f.write(f"Список пользователей: {', '.join(suspicious_users)}\n")
     f.write(f"Общая сумма подозрительных операций: {total_suspicious}\n")
 
 with open(r"C:\Users\Anuar\Desktop\pycharm\lab 2\fraud_users.json", "w", encoding="utf-8") as f:
