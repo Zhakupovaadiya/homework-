@@ -51,7 +51,7 @@ def top_k_words(text, k):
     for i in range(min(k, len(sorted_w))):
         result.append(sorted_w[i][0])
     return result
-print(top_k_words("hi world", 3))
+print(top_k_words("hi world hi apple", 3))
 
 #4
 process = lambda a: " ".join(
