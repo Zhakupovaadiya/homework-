@@ -20,6 +20,21 @@ def sum_ab():
 def home():
     return "Сервер работает"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #1-2
 class Player:
     def __init__(self, _id, name, hp):
@@ -99,21 +114,22 @@ def inventory_route():
 #5
 @app.route("/filtered")
 def filtered():
-    inv = Inventory()
-    inv.add_item(Item(1, "sword", 50))
-    inv.add_item(Item(2, "axe", 30))
-
-    strong = inv.get_strong_items(40)
+    inv=Inventory()
+    inv.add_item(Item(2, "shield", 30))
+    inv.add_item(Item(3, "sword", 50))
+    strong=inv.get_strong_items(40)
     return jsonify([str(i) for i in strong])
+
+
 #6
 from datetime import datetime
 class Event:
-    def __init__(self, type, data):
+    def __init__(self,type,data):
         self.type = type
         self.data = data
         self.timestamp = datetime.now()
     def __str__(self):
-        return f"Event(type='{self.type}', data={self.data}, timestamp='{self.timestamp}')"
+        return f"Event(type={self.type}, data={self.data}, timestamp={self.timestamp})"
     def __repr__(self):
         return self.__str__()
 
@@ -125,8 +141,8 @@ def get_event():
 
 #7
 class EventPlayer(Player):
-    def __init__(self, _id, name, hp):
-        super().__init__(_id, name, hp)
+    def __init__(self,_id,name,hp):
+        super().__init__(_id,name,hp)
         self._inventory = []
     def handle_event(self, event):
         if event.type == "ATTACK":
@@ -136,11 +152,11 @@ class EventPlayer(Player):
         elif event.type == "LOOT":
             self._inventory.append(event.data.get("item"))
     def __str__(self):
-        return f"{self._name} (hp={self._hp})"
+        return f"{self._name}(hp={self._hp})"
 class Warrior(EventPlayer):
     def handle_event(self, event):
         if event.type == "ATTACK":
-            self._hp -= event.data.get("damage", 0) * 0.9
+            self._hp -= event.data.get("damage", 0)*0.9
         else:
             super().handle_event(event)
 class Mage(EventPlayer):
@@ -148,8 +164,8 @@ class Mage(EventPlayer):
         if event.type == "LOOT":
             item = event.data.get("item")
             if item:
-                item.power *= 1.1
-        super().handle_event(event)
+                item.power *=1.1
+            super().handle_event(event)
 @app.route("/eventpl")
 def eventpl():
     p = Warrior(1, "john", 100)
@@ -158,13 +174,11 @@ def eventpl():
     return str(p)
 
 #8-9
-
 class Logger:
     @staticmethod
-    def log(event, player, filename):
-        with open(filename, "a",encoding="utf-8") as f:
+    def log(event,player,filename):
+        with open(filename,"a",encoding="utf-8") as f:
             f.write(f"{event.timestamp};{player._id};{event.type};{event.data}\n")
-
     @staticmethod
     def read_logs(filename):
         events = []
@@ -179,7 +193,6 @@ def task8():
     e = Event("ATTACK", {"damage": 20})
     Logger.log(e, p, "log.txt")
     return "Logged"
-
 @app.route("/read")
 def read():
     events = Logger.read_logs("log.txt")
@@ -329,3 +342,6 @@ def final():
     })
 if __name__ == "__main__":
     app.run(port =5000,debug=True)
+
+
+
