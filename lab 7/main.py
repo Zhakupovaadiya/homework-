@@ -140,7 +140,13 @@ from sklearn.model_selection import cross_val_score
 X_full = df.drop(columns=["col_2", "price_class"])
 X_full_poly = poly.transform(X_full)
 y_full = df["col_2"]
-scores = cross_val_score(model_poly, X_full_poly, y_full, cv=5, scoring="neg_mean_squared_error")
+scores = cross_val_score(
+    model_basic,
+    X_full,
+    y_full,
+    cv=5,
+    scoring="neg_mean_squared_error"
+)
 print("MSE:", -scores.mean())
 
 
